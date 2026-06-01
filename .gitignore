@@ -22,3 +22,7 @@ build/
 # Secrets
 .env
 *.key
+
+# Build and Output Directories
+build_whisper/
+build_output/

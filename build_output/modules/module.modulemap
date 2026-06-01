@@ -1,4 +1,0 @@
-module whisper {
-    header "whisper.h"
-    export *
-}
