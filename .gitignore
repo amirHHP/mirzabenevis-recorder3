@@ -1,0 +1,24 @@
+# Python (legacy)
+legacy/python-backend/.venv/
+vendor/whisper.cpp/build*/
+vendor/whisper.cpp/build-*/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# macOS
+.DS_Store
+*.xcuserstate
+xcuserdata/
+DerivedData/
+build/
+
+# Xcode
+*.pbxuser
+*.mode1v3
+*.mode2v3
+*.perspectivev3
+
+# Secrets
+.env
+*.key

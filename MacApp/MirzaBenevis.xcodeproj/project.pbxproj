@@ -1,0 +1,291 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		B0001000 /* MirzaBenevisApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0001000 /* MirzaBenevisApp.swift */; };
+		B0001001 /* AudioSourceMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0001001 /* AudioSourceMode.swift */; };
+		B0001002 /* TranscriptModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0001002 /* TranscriptModels.swift */; };
+		B0001003 /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0001003 /* AppSettings.swift */; };
+		B0001004 /* AudioCaptureService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0001004 /* AudioCaptureService.swift */; };
+		B0001005 /* AudioMixer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0001005 /* AudioMixer.swift */; };
+		B0001006 /* ClipboardService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0001006 /* ClipboardService.swift */; };
+		B0001007 /* ExportService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0001007 /* ExportService.swift */; };
+		B0001008 /* GeminiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0001008 /* GeminiService.swift */; };
+		B0001009 /* KeychainHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0001009 /* KeychainHelper.swift */; };
+		B000100A /* ModelManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A000100A /* ModelManager.swift */; };
+		B000100B /* PCMConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A000100B /* PCMConverter.swift */; };
+		B000100C /* RecordingCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = A000100C /* RecordingCoordinator.swift */; };
+		B000100D /* SystemAudioCaptureService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A000100D /* SystemAudioCaptureService.swift */; };
+		B000100E /* TranscriptStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A000100E /* TranscriptStore.swift */; };
+		B000100F /* WhisperEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = A000100F /* WhisperEngine.swift */; };
+		B0001010 /* MenuBarPopoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0001010 /* MenuBarPopoverView.swift */; };
+		B0001011 /* SessionsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0001011 /* SessionsListView.swift */; };
+		B0001012 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0001012 /* SettingsView.swift */; };
+		B0001013 /* TranscriptView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0001013 /* TranscriptView.swift */; };
+		B0001014 /* LibWhisper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0001014 /* LibWhisper.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		C0000001 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C0000002 /* MirzaBenevis.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MirzaBenevis.entitlements; sourceTree = "<group>"; };
+		C0000003 /* MirzaBenevis.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MirzaBenevis.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A0001000 /* MirzaBenevisApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MirzaBenevis/MirzaBenevisApp.swift"; sourceTree = "<group>"; };
+		A0001001 /* AudioSourceMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MirzaBenevis/Models/AudioSourceMode.swift"; sourceTree = "<group>"; };
+		A0001002 /* TranscriptModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MirzaBenevis/Models/TranscriptModels.swift"; sourceTree = "<group>"; };
+		A0001003 /* AppSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MirzaBenevis/Services/AppSettings.swift"; sourceTree = "<group>"; };
+		A0001004 /* AudioCaptureService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MirzaBenevis/Services/AudioCaptureService.swift"; sourceTree = "<group>"; };
+		A0001005 /* AudioMixer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MirzaBenevis/Services/AudioMixer.swift"; sourceTree = "<group>"; };
+		A0001006 /* ClipboardService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MirzaBenevis/Services/ClipboardService.swift"; sourceTree = "<group>"; };
+		A0001007 /* ExportService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MirzaBenevis/Services/ExportService.swift"; sourceTree = "<group>"; };
+		A0001008 /* GeminiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MirzaBenevis/Services/GeminiService.swift"; sourceTree = "<group>"; };
+		A0001009 /* KeychainHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MirzaBenevis/Services/KeychainHelper.swift"; sourceTree = "<group>"; };
+		A000100A /* ModelManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MirzaBenevis/Services/ModelManager.swift"; sourceTree = "<group>"; };
+		A000100B /* PCMConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MirzaBenevis/Services/PCMConverter.swift"; sourceTree = "<group>"; };
+		A000100C /* RecordingCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MirzaBenevis/Services/RecordingCoordinator.swift"; sourceTree = "<group>"; };
+		A000100D /* SystemAudioCaptureService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MirzaBenevis/Services/SystemAudioCaptureService.swift"; sourceTree = "<group>"; };
+		A000100E /* TranscriptStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MirzaBenevis/Services/TranscriptStore.swift"; sourceTree = "<group>"; };
+		A000100F /* WhisperEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MirzaBenevis/Services/WhisperEngine.swift"; sourceTree = "<group>"; };
+		A0001010 /* MenuBarPopoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MirzaBenevis/Views/MenuBarPopoverView.swift"; sourceTree = "<group>"; };
+		A0001011 /* SessionsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MirzaBenevis/Views/SessionsListView.swift"; sourceTree = "<group>"; };
+		A0001012 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MirzaBenevis/Views/SettingsView.swift"; sourceTree = "<group>"; };
+		A0001013 /* TranscriptView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MirzaBenevis/Views/TranscriptView.swift"; sourceTree = "<group>"; };
+		A0001014 /* LibWhisper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MirzaBenevis/Whisper/LibWhisper.swift"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		C0000008 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		C0000006 = {
+			isa = PBXGroup;
+			children = (
+				C0000018 /* MirzaBenevis */,
+				C0000017 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		C0000018 /* MirzaBenevis */ = {
+			isa = PBXGroup;
+			children = (
+				C0000001 /* Info.plist */,
+				C0000002 /* MirzaBenevis.entitlements */,
+			);
+			path = MirzaBenevis;
+			sourceTree = "<group>";
+		};
+		C0000017 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C0000003 /* MirzaBenevis.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		C0000004 /* MirzaBenevis */ = {
+			isa = PBXNativeTarget;
+			buildPhases = (
+				C0000007 /* Sources */,
+				C0000008 /* Frameworks */,
+				C0000009 /* Resources */,
+			);
+			buildConfigurationList = C0000011 /* Build configuration list for PBXNativeTarget "MirzaBenevis" */;
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MirzaBenevis;
+			productName = MirzaBenevis;
+			productReference = C0000003 /* MirzaBenevis.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		C0000005 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1500;
+				LastUpgradeCheck = 1500;
+			};
+			buildConfigurationList = C0000010 /* Build configuration list for PBXProject "MirzaBenevis" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = fa;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				fa,
+				Base,
+			);
+			mainGroup = C0000006;
+			productRefGroup = C0000017 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				C0000004 /* MirzaBenevis */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		C0000009 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		C0000007 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B0001000 /* MirzaBenevisApp.swift in Sources */,
+				B0001001 /* AudioSourceMode.swift in Sources */,
+				B0001002 /* TranscriptModels.swift in Sources */,
+				B0001003 /* AppSettings.swift in Sources */,
+				B0001004 /* AudioCaptureService.swift in Sources */,
+				B0001005 /* AudioMixer.swift in Sources */,
+				B0001006 /* ClipboardService.swift in Sources */,
+				B0001007 /* ExportService.swift in Sources */,
+				B0001008 /* GeminiService.swift in Sources */,
+				B0001009 /* KeychainHelper.swift in Sources */,
+				B000100A /* ModelManager.swift in Sources */,
+				B000100B /* PCMConverter.swift in Sources */,
+				B000100C /* RecordingCoordinator.swift in Sources */,
+				B000100D /* SystemAudioCaptureService.swift in Sources */,
+				B000100E /* TranscriptStore.swift in Sources */,
+				B000100F /* WhisperEngine.swift in Sources */,
+				B0001010 /* MenuBarPopoverView.swift in Sources */,
+				B0001011 /* SessionsListView.swift in Sources */,
+				B0001012 /* SettingsView.swift in Sources */,
+				B0001013 /* TranscriptView.swift in Sources */,
+				B0001014 /* LibWhisper.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		C0000012 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_TESTABILITY = YES;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		C0000013 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ENABLE_MODULES = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+			};
+			name = Release;
+		};
+		C0000014 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = MirzaBenevis/MirzaBenevis.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = MirzaBenevis/Info.plist;
+				INFOPLIST_KEY_LSUIElement = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 2.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mirzabenevis.app;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		C0000015 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = MirzaBenevis/MirzaBenevis.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = MirzaBenevis/Info.plist;
+				INFOPLIST_KEY_LSUIElement = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 2.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mirzabenevis.app;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		C0000010 /* Build configuration list for PBXProject "MirzaBenevis" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C0000012 /* Debug */,
+				C0000013 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C0000011 /* Build configuration list for PBXNativeTarget "MirzaBenevis" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C0000014 /* Debug */,
+				C0000015 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = C0000005 /* Project object */;
+}
