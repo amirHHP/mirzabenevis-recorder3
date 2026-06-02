@@ -78,6 +78,12 @@ sed -i '' "s/\$(EXECUTABLE_NAME)/${APP_NAME}/g" "${CONTENTS_DIR}/Info.plist"
 # Add standard PkgInfo file
 echo -n "APPL????" > "${CONTENTS_DIR}/PkgInfo"
 
+# Copy pre-downloaded models if they exist
+if [ -d "models" ]; then
+  echo "Copying pre-downloaded models from models/ to app bundle..."
+  cp models/ggml-*.bin "${RESOURCES_DIR}/" 2>/dev/null || true
+fi
+
 echo "=== 5. Code Signing ==="
 # Ad-hoc sign the app bundle with the app entitlements
 codesign --force \

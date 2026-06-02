@@ -4,6 +4,7 @@ enum WhisperModelSize: String, CaseIterable, Identifiable, Codable {
     case tiny
     case base
     case small
+    case medium
 
     var id: String { rawValue }
 
@@ -12,6 +13,7 @@ enum WhisperModelSize: String, CaseIterable, Identifiable, Codable {
         case .tiny: return "Tiny (~75 MB) — سریع"
         case .base: return "Base (~142 MB) — متعادل"
         case .small: return "Small (~466 MB) — دقیق"
+        case .medium: return "Medium (~1.5 GB) — بسیار دقیق"
         }
     }
 
@@ -26,6 +28,7 @@ enum WhisperModelSize: String, CaseIterable, Identifiable, Codable {
         case .tiny: return 75
         case .base: return 142
         case .small: return 466
+        case .medium: return 1500
         }
     }
 }
@@ -50,13 +53,22 @@ final class ModelManager: ObservableObject {
     }
 
     func isModelDownloaded(_ size: WhisperModelSize) -> Bool {
-        FileManager.default.fileExists(atPath: modelPath(for: size).path)
+        if FileManager.default.fileExists(atPath: modelPath(for: size).path) {
+            return true
+        }
+        if Bundle.main.url(forResource: size.downloadFileName, withExtension: nil) != nil {
+            return true
+        }
+        return false
     }
 
     func ensureModel(_ size: WhisperModelSize) async throws -> URL {
         let path = modelPath(for: size)
         if FileManager.default.fileExists(atPath: path.path) {
             return path
+        }
+        if let bundlePath = Bundle.main.url(forResource: size.downloadFileName, withExtension: nil) {
+            return bundlePath
         }
         try await downloadModel(size)
         return path

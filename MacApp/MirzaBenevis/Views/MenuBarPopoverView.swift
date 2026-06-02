@@ -131,6 +131,10 @@ struct MenuBarPopoverView: View {
         HStack {
             Button("جلسات") { openWindow(id: "sessions") }
             Button("تنظیمات") { openWindow(id: "settings") }
+            Button("خروج") {
+                NSApplication.shared.terminate(nil)
+            }
+            .foregroundStyle(.red)
             Spacer()
             Text("\(transcriptStore.currentSession?.wordCount ?? 0) کلمه")
                 .font(.caption2)
