@@ -68,18 +68,42 @@ final class RecordingCoordinator: ObservableObject {
     }
 
     private func transcribeChunk(_ chunk: Data) async {
-        guard let result = await whisperEngine.transcribe(pcm16: chunk, language: selectedLanguage),
-              !result.words.isEmpty else { return }
+        print("[RecordingCoordinator] transcribeChunk called, size: \(chunk.count) bytes")
 
-        let words = result.words.map { w in
-            TranscriptWord(
-                text: w.text,
-                start: w.start,
-                end: w.end,
-                confidence: w.confidence
-            )
+        guard let result = await whisperEngine.transcribe(pcm16: chunk, language: selectedLanguage) else {
+            print("[RecordingCoordinator] whisperEngine.transcribe returned nil")
+            return
         }
-        transcriptStore.appendWords(words)
+
+        print("[RecordingCoordinator] result: text='\(result.text)', words=\(result.words.count), lang=\(result.detectedLanguage ?? "?")")
+
+        // If we have word-level tokens, use them
+        if !result.words.isEmpty {
+            let words = result.words.map { w in
+                TranscriptWord(
+                    text: w.text,
+                    start: w.start,
+                    end: w.end,
+                    confidence: w.confidence
+                )
+            }
+            transcriptStore.appendWords(words)
+            return
+        }
+
+        // Fallback: if token_timestamps didn't produce words, but we got segment text,
+        // create a single TranscriptWord from the full text so it still shows up.
+        let text = result.text.trimmingCharacters(in: .whitespacesAndNewlines)
+        if !text.isEmpty {
+            print("[RecordingCoordinator] Using fallback: full text without word timestamps")
+            let word = TranscriptWord(
+                text: text,
+                start: 0,
+                end: Double(chunk.count) / (16000 * 2),
+                confidence: 0
+            )
+            transcriptStore.appendWords([word])
+        }
     }
 
     func startRecording() async {

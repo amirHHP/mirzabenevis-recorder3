@@ -100,7 +100,7 @@ actor WhisperContext {
             let tokenCount = whisper_full_n_tokens(context, segmentIndex)
             for tokenIndex in 0..<tokenCount {
                 let tokenData = whisper_full_get_token_data(context, segmentIndex, tokenIndex)
-                guard tokenData.id >= eot else { continue }
+                guard tokenData.id < eot else { continue }
 
                 let tokenText = String(cString: whisper_full_get_token_text(context, segmentIndex, tokenIndex))
                     .trimmingCharacters(in: .whitespacesAndNewlines)
