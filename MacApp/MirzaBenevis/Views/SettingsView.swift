@@ -28,10 +28,41 @@ struct SettingsView: View {
                 .onChange(of: selectedModel) { _, v in AppSettings.whisperModelSize = v }
 
                 if modelManager.isDownloading {
-                    ProgressView(value: modelManager.downloadProgress) {
-                        Text(modelManager.statusMessage)
+                    VStack(alignment: .leading, spacing: 4) {
+                        ProgressView(value: modelManager.downloadProgress) {
+                            HStack {
+                                Text(modelManager.statusMessage)
+                                Spacer()
+                                if !modelManager.downloadSpeed.isEmpty {
+                                    Text(modelManager.downloadSpeed)
+                                        .font(.caption)
+                                        .foregroundStyle(.secondary)
+                                }
+                            }
+                        }
+                        if modelManager.downloadProgress > 0 {
+                            Text("\(Int(modelManager.downloadProgress * 100))%")
+                                .font(.caption2)
+                                .foregroundStyle(.secondary)
+                        }
                     }
+                    Button("لغو دانلود", role: .destructive) {
+                        modelManager.cancelDownload()
+                    }
+                    .buttonStyle(.borderless)
+                    .font(.caption)
                 } else {
+                    if let error = modelManager.downloadError {
+                        VStack(alignment: .leading, spacing: 4) {
+                            Label("خطا در دانلود", systemImage: "exclamationmark.triangle.fill")
+                                .foregroundStyle(.red)
+                                .font(.caption)
+                            Text(error)
+                                .font(.caption2)
+                                .foregroundStyle(.secondary)
+                                .lineLimit(3)
+                        }
+                    }
                     Button("دانلود / به‌روزرسانی مدل") {
                         Task {
                             try? await modelManager.downloadModel(selectedModel)
