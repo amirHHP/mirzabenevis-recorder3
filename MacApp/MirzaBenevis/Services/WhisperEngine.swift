@@ -1,4 +1,5 @@
 import Foundation
+import AppKit
 
 @MainActor
 final class WhisperEngine: ObservableObject {
@@ -9,6 +10,21 @@ final class WhisperEngine: ObservableObject {
 
     private var context: WhisperContext?
     private var timeOffsetMs: Int32 = 0
+
+    init() {
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(handleWillTerminate),
+            name: NSApplication.willTerminateNotification,
+            object: nil
+        )
+    }
+
+    @objc private func handleWillTerminate() {
+        print("[WhisperEngine] App is terminating, releasing model context...")
+        context = nil
+        isModelLoaded = false
+    }
 
     func loadModel(size: WhisperModelSize) async {
         loadError = nil
