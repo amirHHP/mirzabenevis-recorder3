@@ -43,6 +43,7 @@ struct TranscriptionSession: Identifiable, Codable, Hashable {
     var createdAt: Date
     var updatedAt: Date
     var language: String?
+    var audioFilePath: String?
 
     init(
         id: UUID = UUID(),
@@ -51,7 +52,8 @@ struct TranscriptionSession: Identifiable, Codable, Hashable {
         summary: String? = nil,
         createdAt: Date = Date(),
         updatedAt: Date = Date(),
-        language: String? = nil
+        language: String? = nil,
+        audioFilePath: String? = nil
     ) {
         self.id = id
         self.title = title
@@ -60,6 +62,7 @@ struct TranscriptionSession: Identifiable, Codable, Hashable {
         self.createdAt = createdAt
         self.updatedAt = updatedAt
         self.language = language
+        self.audioFilePath = audioFilePath
     }
 
     var fullText: String {
@@ -67,6 +70,12 @@ struct TranscriptionSession: Identifiable, Codable, Hashable {
     }
 
     var wordCount: Int { words.count }
+
+    var audioFileURL: URL? {
+        guard let path = audioFilePath else { return nil }
+        let url = URL(fileURLWithPath: path)
+        return FileManager.default.fileExists(atPath: url.path) ? url : nil
+    }
 }
 
 struct TranscriptionMessage: Codable {

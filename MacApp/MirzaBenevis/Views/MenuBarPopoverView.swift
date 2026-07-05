@@ -128,17 +128,26 @@ struct MenuBarPopoverView: View {
     }
 
     private var footer: some View {
-        HStack {
-            Button("جلسات") { openWindow(id: "sessions") }
-            Button("تنظیمات") { openWindow(id: "settings") }
-            Button("خروج") {
-                NSApplication.shared.terminate(nil)
+        VStack(spacing: 8) {
+            HStack {
+                Button("جلسات") { openWindow(id: "sessions") }
+                Button("تنظیمات") { openWindow(id: "settings") }
+                Spacer()
+                Text("\(transcriptStore.currentSession?.wordCount ?? 0) کلمه")
+                    .font(.caption2)
+                    .foregroundStyle(.secondary)
             }
-            .foregroundStyle(.red)
-            Spacer()
-            Text("\(transcriptStore.currentSession?.wordCount ?? 0) کلمه")
-                .font(.caption2)
-                .foregroundStyle(.secondary)
+            Divider()
+            HStack {
+                Button {
+                    NSApplication.shared.terminate(nil)
+                } label: {
+                    Label("خروج از برنامه", systemImage: "power")
+                        .foregroundStyle(.red)
+                }
+                .buttonStyle(.borderless)
+                Spacer()
+            }
         }
     }
 }

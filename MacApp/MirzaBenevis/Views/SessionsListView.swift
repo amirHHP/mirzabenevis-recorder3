@@ -72,6 +72,7 @@ struct SessionDetailView: View {
             VStack(alignment: .leading, spacing: 20) {
                 header
                 exportSection
+                audioSection
                 transcriptSection
                 summarySection
             }
@@ -113,6 +114,35 @@ struct SessionDetailView: View {
                     Text(exportMessage)
                         .font(.caption)
                         .foregroundStyle(.green)
+                }
+            }
+        }
+    }
+
+    @ViewBuilder
+    private var audioSection: some View {
+        if let audioURL = session.audioFileURL {
+            GroupBox("فایل صوتی") {
+                HStack(spacing: 12) {
+                    Button {
+                        NSWorkspace.shared.open(audioURL)
+                    } label: {
+                        Label("پخش", systemImage: "play.circle.fill")
+                    }
+
+                    Button {
+                        NSWorkspace.shared.activateFileViewerSelecting([audioURL])
+                    } label: {
+                        Label("نمایش در Finder", systemImage: "folder")
+                    }
+
+                    Spacer()
+
+                    if let size = try? FileManager.default.attributesOfItem(atPath: audioURL.path)[.size] as? Int64 {
+                        Text(ByteCountFormatter.string(fromByteCount: size, countStyle: .file))
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
+                    }
                 }
             }
         }

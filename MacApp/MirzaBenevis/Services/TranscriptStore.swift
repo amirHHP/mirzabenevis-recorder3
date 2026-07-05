@@ -32,9 +32,12 @@ final class TranscriptStore: ObservableObject {
         currentSession = session
     }
 
-    func stopSession() {
+    func stopSession(audioFilePath: String? = nil) {
         guard var session = currentSession else { return }
         session.updatedAt = Date()
+        if let path = audioFilePath {
+            session.audioFilePath = path
+        }
         if sessions.contains(where: { $0.id == session.id }) {
             if let index = sessions.firstIndex(where: { $0.id == session.id }) {
                 sessions[index] = session
@@ -42,6 +45,7 @@ final class TranscriptStore: ObservableObject {
         } else {
             sessions.insert(session, at: 0)
         }
+        currentSession = session
         saveSessions()
         isRecording = false
     }

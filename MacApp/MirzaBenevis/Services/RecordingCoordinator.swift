@@ -16,6 +16,10 @@ final class RecordingCoordinator: ObservableObject {
     private var pcmBuffer = Data()
     private let chunkBytes = 16000 * 2 * 3 // 3 seconds at 16kHz mono int16
 
+    /// Accumulator for saving the full audio as a WAV file
+    private var audioRecording = Data()
+    private var audioChunkCount = 0
+
     init(transcriptStore: TranscriptStore) {
         self.transcriptStore = transcriptStore
     }
@@ -53,11 +57,17 @@ final class RecordingCoordinator: ObservableObject {
             audioMixer.onMixedData = { [weak self] data in
                 Task { @MainActor in self?.handleAudioChunk(data) }
             }
+            audioMixer.start()
         }
     }
 
     private func handleAudioChunk(_ data: Data) {
         guard isActive else { return }
+
+        // Save audio for file export
+        audioRecording.append(data)
+        audioChunkCount += 1
+
         pcmBuffer.append(data)
 
         while pcmBuffer.count >= chunkBytes {
@@ -117,6 +127,8 @@ final class RecordingCoordinator: ObservableObject {
         wireAudioCallbacks(for: audioSource)
         whisperEngine.resetTiming()
         pcmBuffer.removeAll(keepingCapacity: true)
+        audioRecording.removeAll(keepingCapacity: true)
+        audioChunkCount = 0
 
         switch audioSource {
         case .microphone:
@@ -152,8 +164,10 @@ final class RecordingCoordinator: ObservableObject {
             }
             isActive = true
             statusMessage = statusLabel(for: audioSource)
+            print("[RecordingCoordinator] ✅ Recording started, source: \(audioSource.rawValue)")
         } catch {
             statusMessage = "خطا: \(error.localizedDescription)"
+            print("[RecordingCoordinator] ❌ Failed to start recording: \(error)")
             await stopAllCapture()
         }
     }
@@ -166,9 +180,13 @@ final class RecordingCoordinator: ObservableObject {
             pcmBuffer.removeAll()
         }
 
-        transcriptStore.stopSession()
+        // Save audio file
+        let audioPath = saveAudioFile()
+
+        transcriptStore.stopSession(audioFilePath: audioPath)
         isActive = false
         statusMessage = "ضبط متوقف شد"
+        print("[RecordingCoordinator] Recording stopped. Audio chunks: \(audioChunkCount), total bytes: \(audioRecording.count)")
     }
 
     func copyCurrentTranscript() {
@@ -189,5 +207,70 @@ final class RecordingCoordinator: ObservableObject {
         case .systemAudio: return "ضبط — صدای سیستم (on-device)"
         case .both: return "ضبط — میک + سیستم (on-device)"
         }
+    }
+
+    // MARK: - Audio File Saving
+
+    /// Save accumulated PCM data as a WAV file. Returns the file path if successful.
+    private func saveAudioFile() -> String? {
+        guard !audioRecording.isEmpty else {
+            print("[RecordingCoordinator] No audio data to save")
+            return nil
+        }
+
+        let dir = audioDirectory
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd_HH-mm-ss"
+        let filename = "recording_\(formatter.string(from: Date())).wav"
+        let fileURL = dir.appendingPathComponent(filename)
+
+        do {
+            let wavData = Self.createWAVFile(from: audioRecording, sampleRate: 16000, channels: 1, bitsPerSample: 16)
+            try wavData.write(to: fileURL, options: .atomic)
+            print("[RecordingCoordinator] ✅ Audio saved: \(fileURL.path) (\(wavData.count) bytes)")
+            return fileURL.path
+        } catch {
+            print("[RecordingCoordinator] ❌ Failed to save audio: \(error)")
+            return nil
+        }
+    }
+
+    private var audioDirectory: URL {
+        let base = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask).first!
+        let dir = base.appendingPathComponent("MirzaBenevis/recordings", isDirectory: true)
+        try? FileManager.default.createDirectory(at: dir, withIntermediateDirectories: true)
+        return dir
+    }
+
+    /// Create a WAV file from raw PCM data.
+    static func createWAVFile(from pcmData: Data, sampleRate: Int, channels: Int, bitsPerSample: Int) -> Data {
+        let byteRate = sampleRate * channels * (bitsPerSample / 8)
+        let blockAlign = channels * (bitsPerSample / 8)
+        let dataSize = UInt32(pcmData.count)
+        let fileSize = UInt32(36 + pcmData.count)
+
+        var header = Data()
+
+        // RIFF header
+        header.append(contentsOf: "RIFF".utf8)
+        header.append(contentsOf: withUnsafeBytes(of: fileSize.littleEndian) { Array($0) })
+        header.append(contentsOf: "WAVE".utf8)
+
+        // fmt sub-chunk
+        header.append(contentsOf: "fmt ".utf8)
+        header.append(contentsOf: withUnsafeBytes(of: UInt32(16).littleEndian) { Array($0) })     // sub-chunk size
+        header.append(contentsOf: withUnsafeBytes(of: UInt16(1).littleEndian) { Array($0) })      // PCM format
+        header.append(contentsOf: withUnsafeBytes(of: UInt16(channels).littleEndian) { Array($0) })
+        header.append(contentsOf: withUnsafeBytes(of: UInt32(sampleRate).littleEndian) { Array($0) })
+        header.append(contentsOf: withUnsafeBytes(of: UInt32(byteRate).littleEndian) { Array($0) })
+        header.append(contentsOf: withUnsafeBytes(of: UInt16(blockAlign).littleEndian) { Array($0) })
+        header.append(contentsOf: withUnsafeBytes(of: UInt16(bitsPerSample).littleEndian) { Array($0) })
+
+        // data sub-chunk
+        header.append(contentsOf: "data".utf8)
+        header.append(contentsOf: withUnsafeBytes(of: dataSize.littleEndian) { Array($0) })
+        header.append(pcmData)
+
+        return header
     }
 }
