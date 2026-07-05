@@ -130,8 +130,14 @@ struct MenuBarPopoverView: View {
     private var footer: some View {
         VStack(spacing: 8) {
             HStack {
-                Button("جلسات") { openWindow(id: "sessions") }
-                Button("تنظیمات") { openWindow(id: "settings") }
+                Button("جلسات") {
+                    NSApp.activate(ignoringOtherApps: true)
+                    openWindow(id: "sessions")
+                }
+                Button("تنظیمات") {
+                    NSApp.activate(ignoringOtherApps: true)
+                    openWindow(id: "settings")
+                }
                 Spacer()
                 Text("\(transcriptStore.currentSession?.wordCount ?? 0) کلمه")
                     .font(.caption2)
@@ -140,7 +146,12 @@ struct MenuBarPopoverView: View {
             Divider()
             HStack {
                 Button {
-                    NSApplication.shared.terminate(nil)
+                    Task {
+                        if coordinator.isActive {
+                            await coordinator.stopRecording()
+                        }
+                        _exit(0)
+                    }
                 } label: {
                     Label("خروج از برنامه", systemImage: "power")
                         .foregroundStyle(.red)

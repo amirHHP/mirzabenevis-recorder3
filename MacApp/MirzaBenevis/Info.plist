@@ -21,12 +21,16 @@
     <key>LSMinimumSystemVersion</key>
     <string>14.0</string>
     <key>LSUIElement</key>
-    <true/>
+    <false/>
     <key>NSMicrophoneUsageDescription</key>
     <string>Mirza Benevis برای تبدیل گفتار جلسه به متن به دسترسی میکروفون نیاز دارد.</string>
     <key>NSScreenCaptureUsageDescription</key>
     <string>Mirza Benevis برای ضبط صدای سیستم (مثل Zoom و Meet) به مجوز Screen Recording نیاز دارد.</string>
     <key>NSPrincipalClass</key>
     <string>NSApplication</string>
+    <key>CFBundleIconFile</key>
+    <string>AppIcon</string>
+    <key>CFBundleIconName</key>
+    <string>AppIcon</string>
 </dict>
 </plist>

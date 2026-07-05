@@ -133,19 +133,25 @@ final class RecordingCoordinator: ObservableObject {
         switch audioSource {
         case .microphone:
             guard await micCapture.requestPermission() else {
-                statusMessage = "دسترسی میکروفون رد شد"
+                statusMessage = "دسترسی میکروفون رد شد. لطفاً دسترسی به میکروفون را در تنظیمات سیستم فعال کنید."
                 return
             }
         case .systemAudio:
             guard await systemCapture.requestPermission() else {
-                statusMessage = "دسترسی Screen Recording رد شد"
+                statusMessage = "دسترسی Screen Recording رد شد. اگر دسترسی داده‌اید، برنامه را ببندید و دوباره باز کنید."
                 return
             }
         case .both:
             let micOK = await micCapture.requestPermission()
             let sysOK = await systemCapture.requestPermission()
+            if !micOK && !sysOK {
+                statusMessage = "دسترسی میکروفون و Screen Recording رد شد."
+            } else if !micOK {
+                statusMessage = "دسترسی میکروفون رد شد. لطفاً دسترسی به میکروفون را در تنظیمات سیستم فعال کنید."
+            } else if !sysOK {
+                statusMessage = "دسترسی Screen Recording (صدای سیستم) رد شد. اگر دسترسی داده‌اید، برنامه را ببندید و دوباره باز کنید."
+            }
             guard micOK && sysOK else {
-                statusMessage = "دسترسی میکروفون یا صدای سیستم رد شد"
                 return
             }
         }
