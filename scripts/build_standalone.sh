@@ -146,12 +146,25 @@ echo "  ✅ App bundle ready"
 # ─── Step 6: Code Signing ────────────────────────────────────────────────────
 
 echo "=== 6/7 Code Signing ==="
+SIGNING_IDENTITY="-"
+if security find-identity -p codesigning | grep -q "MirzaBenevisLocalSign"; then
+  SIGNING_IDENTITY="MirzaBenevisLocalSign"
+  echo "  Using local code signing identity: ${SIGNING_IDENTITY}"
+else
+  echo "  ⚠️ MirzaBenevisLocalSign identity not found or not trusted. Falling back to ad-hoc signing."
+fi
+
 codesign --force \
   --options runtime \
   --entitlements MacApp/MirzaBenevis/MirzaBenevis.entitlements \
-  --sign - \
+  --sign "$SIGNING_IDENTITY" \
   "$APP_BUNDLE"
-echo "  ✅ Signed (ad-hoc)"
+
+if [ "$SIGNING_IDENTITY" = "-" ]; then
+  echo "  ✅ Signed (ad-hoc)"
+else
+  echo "  ✅ Signed with ${SIGNING_IDENTITY}"
+fi
 
 # ─── Step 7: Create DMG Installer ────────────────────────────────────────────
 
